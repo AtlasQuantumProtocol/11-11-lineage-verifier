@@ -1,0 +1,15 @@
+Identity Layer
+↓
+Policy Layer
+↓
+Authorization Layer
+↓
+Runtime Enforcement Layer
+↓
+Audit Layer
+↓
+Lineage Layer
+↓
+Verification Layer
+↓
+Conformance Layer
