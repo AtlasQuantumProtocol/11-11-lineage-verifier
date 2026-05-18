@@ -1,0 +1,7 @@
+{
+  "execution_id": "exec_002",
+  "authorized": false,
+  "policy_hash": "tampered_hash",
+  "lineage_valid": false,
+  "audit_integrity": false
+}
