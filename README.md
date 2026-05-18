@@ -39,4 +39,19 @@ python verifier/verify.py examples/verified_execution.json
 
 ```bash
 ./tests/run_test.sh
-eof
+```
+
+Example Output:
+
+```json
+{
+  "verified": true,
+  "authorization_valid": true,
+  "policy_hash_match": true,
+  "lineage_chain_valid": true,
+  "audit_integrity_valid": true,
+  "tamper_detected": false
+}
+```
+
+The verifier validates authorization integrity, execution lineage consistency, immutable audit state, and governed execution verification status.
