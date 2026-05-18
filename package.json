@@ -1,0 +1,25 @@
+{
+  "name": "11-11-lineage-verifier",
+  "version": "0.1.0",
+  "description": "Reference verifier for RFC-EG-0010 Execution Lineage Specification.",
+  "type": "module",
+  "bin": {
+    "lineage-verify": "./src/verifier.js"
+  },
+  "scripts": {
+    "verify": "node src/verifier.js samples/sample-lineage.json",
+    "test": "node src/verifier.js samples/sample-lineage.json"
+  },
+  "keywords": [
+    "execution-governance",
+    "execution-lineage",
+    "cryptographic-audit",
+    "sha3-512",
+    "blake2b-512",
+    "ed25519",
+    "governed-execution",
+    "runtime-verification",
+    "RFC-EG-0010"
+  ],
+  "license": "Apache-2.0"
+}
