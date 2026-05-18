@@ -1,0 +1,66 @@
+{
+  "rfc": "RFC-EG-0010",
+  "version": "0.1.0-reference",
+  "operation_id": "op_demo_001",
+  "events": [
+    {
+      "v": "1",
+      "evt": "authorization.issued",
+      "op_id": "op_demo_001",
+      "seq": 1,
+      "ts": "2026-05-18T00:00:00.000Z",
+      "producer": {
+        "service": "authorization",
+        "instance": "governance://11-11/reference/demo"
+      },
+      "payload": {
+        "artifact_id": "auth_demo_001",
+        "subject": "agent:demo",
+        "policy_ref": "policy://demo/reference"
+      },
+      "prev_hash": null,
+      "prev_hash_b": null,
+      "chash": "sha3-512:6bb88ffd1d135bd28dcfdb917a3ca1d1d06d7c357e2fc24dc923970f47e89fefda297f99d45ad5d65f7da91ede7e36a1cdd49d904f4edf4e86e375cb05b1698b",
+      "chash_b": "blake2b-512:a37afe2730c50ac302c82e0faf63a51ce08d500d6e91e2bc404af695e6d5b73c67453520126a5e0bbc48b9e37d13dc55d0dac9d9fcc790fa8c49007e0d538108"
+    },
+    {
+      "v": "1",
+      "evt": "admission.granted",
+      "op_id": "op_demo_001",
+      "seq": 2,
+      "ts": "2026-05-18T00:00:01.000Z",
+      "producer": {
+        "service": "runtime",
+        "instance": "governance://11-11/reference/runtime"
+      },
+      "payload": {
+        "artifact_id": "auth_demo_001",
+        "runtime": "reference-runtime",
+        "decision": "admit"
+      },
+      "prev_hash": "sha3-512:6bb88ffd1d135bd28dcfdb917a3ca1d1d06d7c357e2fc24dc923970f47e89fefda297f99d45ad5d65f7da91ede7e36a1cdd49d904f4edf4e86e375cb05b1698b",
+      "prev_hash_b": "blake2b-512:a37afe2730c50ac302c82e0faf63a51ce08d500d6e91e2bc404af695e6d5b73c67453520126a5e0bbc48b9e37d13dc55d0dac9d9fcc790fa8c49007e0d538108",
+      "chash": "sha3-512:6f4862ce82cb814559364487dd798d7861f949b6f07851c3717fa85bef915a50928c6ccaa547936b6052fafa47518fdc66575ab798a67803c2c9b3f991cbd178",
+      "chash_b": "blake2b-512:ca5bd63f2b4671fcd882caa5d75bb2f798b0f52c96a7c7856c424c307f8bc45adde822e690ec72cdcbbd3369edb148d8f2a26b44a1f6bce77eb4212ab5e3b4e2"
+    },
+    {
+      "v": "1",
+      "evt": "execution.completed",
+      "op_id": "op_demo_001",
+      "seq": 3,
+      "ts": "2026-05-18T00:00:02.000Z",
+      "producer": {
+        "service": "runtime",
+        "instance": "governance://11-11/reference/runtime"
+      },
+      "payload": {
+        "result_ref": "sha3-512:demo-result-reference",
+        "status": "completed"
+      },
+      "prev_hash": "sha3-512:6f4862ce82cb814559364487dd798d7861f949b6f07851c3717fa85bef915a50928c6ccaa547936b6052fafa47518fdc66575ab798a67803c2c9b3f991cbd178",
+      "prev_hash_b": "blake2b-512:ca5bd63f2b4671fcd882caa5d75bb2f798b0f52c96a7c7856c424c307f8bc45adde822e690ec72cdcbbd3369edb148d8f2a26b44a1f6bce77eb4212ab5e3b4e2",
+      "chash": "sha3-512:ae2d7936a802ad3be4ac789d2e608b2a219ab292e728a2ee8fa08de402d3b78e8f33dd67a51169cbdae2a5e02f40fedd1b6288bedf17a2c6dc0244f4fee75aa2",
+      "chash_b": "blake2b-512:b0ad2362ea01c19e9efa30ee3b498341b776a831b8e30a1abe4c8a8e95e8f539298b355ffaffa14851b866c7fc1a504d294d3c1bc729bbe3ab5708c78cc58d9f"
+    }
+  ]
+}
