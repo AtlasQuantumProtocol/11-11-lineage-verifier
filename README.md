@@ -32,3 +32,11 @@ Request
 
 ```bash
 python verifier/verify.py examples/verified_execution.json
+
+---
+
+## Live Verification Test Output
+
+```bash
+./tests/run_test.sh
+eof
