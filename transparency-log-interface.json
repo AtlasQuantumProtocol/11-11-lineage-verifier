@@ -1,0 +1,18 @@
+{
+  "service": "execution-governance-transparency-log",
+  "version": "1.0",
+  "status": "TARGET_DESIGN",
+  "features": {
+    "append_only": true,
+    "signed_tree_heads": true,
+    "witness_signatures": true,
+    "inclusion_proofs": true,
+    "consistency_proofs": true,
+    "rfc3161_timestamps": true,
+    "external_anchoring": true
+  },
+  "verification": {
+    "split_view_detection": true,
+    "independent_verification": true
+  }
+}
