@@ -1,7 +1,66 @@
 {
-  "execution_id": "exec_001",
-  "authorized": true,
-  "policy_hash": "sha3_512_example",
-  "lineage_valid": true,
-  "audit_integrity": true
+  "rfc": "RFC-EG-0010",
+  "version": "0.1.0-reference",
+  "operation_id": "exec_002",
+  "events": [
+    {
+      "v": "1",
+      "evt": "authorization.issued",
+      "op_id": "exec_002",
+      "seq": 1,
+      "ts": "2026-05-18T00:00:00.000Z",
+      "producer": {
+        "service": "authorization",
+        "instance": "governance://11-11/reference/demo"
+      },
+      "payload": {
+        "artifact_id": "auth_exec_002",
+        "subject": "agent:demo",
+        "policy_ref": "policy://demo/reference"
+      },
+      "prev_hash": null,
+      "prev_hash_b": null,
+      "chash": "sha3-512:d351263d52c3a43e6301e199c8d780f61fc20ab9ee344106cf03deacd365dc369d2ce9257af326a740a4fe87a16cc83ad201010fa0b5412d2796bd2d15bf03a6",
+      "chash_b": "blake2b-512:660e916966a61ad33b2e5ba907b600a6fe4d99f28651735a6061812581fc2dfa481ad9d17aca1332687591782c08ac29e5578ec5012272d07ff1ce88d5fe1622"
+    },
+    {
+      "v": "1",
+      "evt": "admission.granted",
+      "op_id": "exec_002",
+      "seq": 2,
+      "ts": "2026-05-18T00:00:01.000Z",
+      "producer": {
+        "service": "runtime",
+        "instance": "governance://11-11/reference/runtime"
+      },
+      "payload": {
+        "artifact_id": "auth_exec_002",
+        "runtime": "reference-runtime",
+        "decision": "admit"
+      },
+      "prev_hash": "sha3-512:d351263d52c3a43e6301e199c8d780f61fc20ab9ee344106cf03deacd365dc369d2ce9257af326a740a4fe87a16cc83ad201010fa0b5412d2796bd2d15bf03a6",
+      "prev_hash_b": "blake2b-512:660e916966a61ad33b2e5ba907b600a6fe4d99f28651735a6061812581fc2dfa481ad9d17aca1332687591782c08ac29e5578ec5012272d07ff1ce88d5fe1622",
+      "chash": "sha3-512:5a997e4abeaeff3d241374e25e68de964ffe9cac8e3e91b60dd6ac99133f0f189fcc4a4415e034d5f30e44833f654ec7b15855a96861b9769a896ac5f8118f51",
+      "chash_b": "blake2b-512:d59071faf7f5c1757de8cc8b58f4474c75669f5bbd39b9973edf3068497faabf901a4a4e26e28781c45b0e2b152657a3c0767877108b362d9bc11deac4a2f2e3"
+    },
+    {
+      "v": "1",
+      "evt": "execution.completed",
+      "op_id": "exec_002",
+      "seq": 3,
+      "ts": "2026-05-18T00:00:02.000Z",
+      "producer": {
+        "service": "runtime",
+        "instance": "governance://11-11/reference/runtime"
+      },
+      "payload": {
+        "result_ref": "sha3-512:reference-result",
+        "status": "completed"
+      },
+      "prev_hash": "sha3-512:5a997e4abeaeff3d241374e25e68de964ffe9cac8e3e91b60dd6ac99133f0f189fcc4a4415e034d5f30e44833f654ec7b15855a96861b9769a896ac5f8118f51",
+      "prev_hash_b": "blake2b-512:d59071faf7f5c1757de8cc8b58f4474c75669f5bbd39b9973edf3068497faabf901a4a4e26e28781c45b0e2b152657a3c0767877108b362d9bc11deac4a2f2e3",
+      "chash": "sha3-512:7631545d459873e6ac60e1f5b92364acd1a4ce0bcf7b68c5cca9463b40e5a94697934d6a84262c1d9c52664ae4b6bdf77b6c0799d54ddbb1c0ad0dd9b1451654",
+      "chash_b": "blake2b-512:1df1699268175d2d290d642e9de9b6575cae42fac4823c984b1bb744658622b8712037180d1f355a0a749071ea55a8bedabb624d6cf070f105015ca9d8652161"
+    }
+  ]
 }

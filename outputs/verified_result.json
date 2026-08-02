@@ -1,8 +1,20 @@
 {
   "verified": true,
-  "authorization_valid": true,
-  "policy_hash_match": true,
-  "lineage_chain_valid": true,
-  "audit_integrity_valid": true,
+  "events": 5,
+  "last_hash": "sha3-512:e85e5c247f86f7e75fc4529c5d5bb401f6b29c3f26b29ec8631134aaa4be7ce85ca354f45751df9485b5f21d1cfd695fe3a226e236f237e59e05c788bfe1c647",
+  "last_hash_b": "blake2b-512:43ef8542acc5c677b50745009af97b909f1de6b36e7b0bc7ac9c8f2e77dd1317aea63ca2b2430c2591959489e3a333e742c7640037ddbd5b56b629467302e6d7",
+  "event_types": [
+    "authorization.issued",
+    "admission.granted",
+    "retrieval.performed",
+    "output.emitted",
+    "execution.completed"
+  ],
+  "output_provenance": {
+    "ok": true,
+    "outputs_checked": 1,
+    "sources_retrieved": 2,
+    "problems": []
+  },
   "tamper_detected": false
 }

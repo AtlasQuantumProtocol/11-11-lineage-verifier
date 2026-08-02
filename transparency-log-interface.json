@@ -1,18 +1,25 @@
 {
   "service": "execution-governance-transparency-log",
-  "version": "1.0",
-  "status": "TARGET_DESIGN",
+  "version": "2.0",
+  "status": "IMPLEMENTED_PARTIAL",
+  "implementation": {
+    "log": "src/transparency-log.js",
+    "anchoring": "src/anchor.js",
+    "verifiers": ["src/lineage.js", "verifier/verify.py"]
+  },
   "features": {
-    "append_only": true,
-    "signed_tree_heads": true,
-    "witness_signatures": true,
-    "inclusion_proofs": true,
-    "consistency_proofs": true,
-    "rfc3161_timestamps": true,
-    "external_anchoring": true
+    "append_only": { "built": true },
+    "merkle_tree": { "built": true, "spec": "RFC 6962", "hash": "SHA3-512" },
+    "signed_tree_heads": { "built": true, "algorithms": ["Ed25519", "ML-DSA-87"] },
+    "inclusion_proofs": { "built": true },
+    "consistency_proofs": { "built": true },
+    "rfc3161_timestamps": { "built": true, "provider": "Rfc3161AnchorProvider" },
+    "external_anchoring": { "built": true, "provider": "OpenTimestampsAnchorProvider", "backing": "Bitcoin" },
+    "witness_signatures": { "built": false, "note": "No witness client or quorum policy exists." },
+    "on_chain_transaction_anchor": { "built": false, "note": "Deliberately omitted. Requires a funded key and a network decision; a stub returning a plausible tx hash would misrepresent an unverifiable claim as verified." }
   },
   "verification": {
-    "split_view_detection": true,
-    "independent_verification": true
+    "independent_verification": { "built": true, "note": "Two implementations in different languages, cross-checked in CI." },
+    "split_view_detection": { "built": false, "note": "External timestamping constrains backdating but does not prevent equivocation. Requires witness signatures." }
   }
 }
