@@ -1,14 +1,18 @@
 {
   "name": "11-11-lineage-verifier",
-  "version": "0.1.0",
-  "description": "Reference verifier for RFC-EG-0010 Execution Lineage Specification.",
+  "version": "0.2.0",
+  "description": "Reference verifier for RFC-EG-0010 Execution Lineage Specification, with witnessed transparency log and external anchoring.",
   "type": "module",
   "bin": {
     "lineage-verify": "./src/verifier.js"
   },
   "scripts": {
     "verify": "node src/verifier.js samples/sample-lineage.json",
-    "test": "node src/verifier.js samples/sample-lineage.json"
+    "verify:retrieval": "node src/verifier.js samples/sample-retrieval-lineage.json",
+    "verify:python": "python3 verifier/verify.py samples/sample-lineage.json",
+    "test": "node --test tests/*.test.mjs",
+    "test:conformance": "bash tests/run_test.sh",
+    "anchor:demo": "node scripts/anchor-demo.mjs"
   },
   "keywords": [
     "execution-governance",
@@ -17,9 +21,18 @@
     "sha3-512",
     "blake2b-512",
     "ed25519",
+    "ml-dsa-87",
+    "post-quantum",
+    "transparency-log",
+    "merkle-proof",
+    "rfc3161",
+    "opentimestamps",
     "governed-execution",
     "runtime-verification",
     "RFC-EG-0010"
   ],
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@noble/post-quantum": "^0.6.1"
+  }
 }

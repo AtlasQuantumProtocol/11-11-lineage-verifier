@@ -1,0 +1,185 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://11-11.ai/schemas/lineage-event.schema.json",
+  "title": "RFC-EG-0010 Execution Lineage Document",
+  "description": "Hash-chained execution lineage. Each event carries dual digests (SHA3-512 primary, BLAKE2b-512 redundant) computed over the canonicalized event body concatenated with the predecessor digest.",
+  "type": "object",
+  "required": ["rfc", "version", "operation_id", "events"],
+  "properties": {
+    "rfc": { "const": "RFC-EG-0010" },
+    "version": { "type": "string" },
+    "operation_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Every event in the document must carry this same op_id."
+    },
+    "events": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/event" }
+    }
+  },
+  "$defs": {
+    "sha3_512": {
+      "type": "string",
+      "pattern": "^sha3-512:[a-f0-9]{128}$"
+    },
+    "blake2b_512": {
+      "type": "string",
+      "pattern": "^blake2b-512:[a-f0-9]{128}$"
+    },
+    "producer": {
+      "type": "object",
+      "required": ["service", "instance"],
+      "properties": {
+        "service": { "type": "string", "minLength": 1 },
+        "instance": { "type": "string", "minLength": 1 }
+      }
+    },
+    "event": {
+      "type": "object",
+      "required": [
+        "v",
+        "evt",
+        "op_id",
+        "seq",
+        "ts",
+        "producer",
+        "payload",
+        "prev_hash",
+        "prev_hash_b",
+        "chash",
+        "chash_b"
+      ],
+      "properties": {
+        "v": { "const": "1" },
+        "evt": {
+          "type": "string",
+          "enum": [
+            "authorization.issued",
+            "admission.granted",
+            "admission.denied",
+            "execution.completed",
+            "execution.failed",
+            "retrieval.performed",
+            "output.emitted"
+          ]
+        },
+        "op_id": { "type": "string", "minLength": 1 },
+        "seq": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Strictly increments by 1 from 1. No gaps."
+        },
+        "ts": {
+          "type": "string",
+          "format": "date-time",
+          "description": "RFC 3339 UTC. Must not regress relative to the previous event."
+        },
+        "producer": { "$ref": "#/$defs/producer" },
+        "payload": { "type": "object" },
+        "prev_hash": {
+          "oneOf": [{ "$ref": "#/$defs/sha3_512" }, { "type": "null" }],
+          "description": "null only at seq 1 (genesis)."
+        },
+        "prev_hash_b": {
+          "oneOf": [{ "$ref": "#/$defs/blake2b_512" }, { "type": "null" }]
+        },
+        "chash": { "$ref": "#/$defs/sha3_512" },
+        "chash_b": { "$ref": "#/$defs/blake2b_512" },
+        "sig": {
+          "type": "object",
+          "description": "Optional detached signature. Excluded from the hashed body."
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "evt": { "const": "authorization.issued" } },
+            "required": ["evt"]
+          },
+          "then": {
+            "properties": {
+              "payload": {
+                "type": "object",
+                "required": ["artifact_id", "subject", "policy_ref"]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "evt": { "const": "retrieval.performed" } },
+            "required": ["evt"]
+          },
+          "then": {
+            "properties": {
+              "payload": {
+                "type": "object",
+                "required": ["query_hash", "sources"],
+                "properties": {
+                  "query_hash": { "type": "string", "minLength": 1 },
+                  "retriever": { "type": "string" },
+                  "sources": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                      "type": "object",
+                      "required": ["source_id", "content_hash"],
+                      "properties": {
+                        "source_id": { "type": "string", "minLength": 1 },
+                        "content_hash": { "type": "string", "minLength": 1 },
+                        "uri": { "type": "string" },
+                        "score": { "type": "number" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "evt": { "const": "output.emitted" } },
+            "required": ["evt"]
+          },
+          "then": {
+            "properties": {
+              "payload": {
+                "type": "object",
+                "required": ["output_hash", "derived_from"],
+                "properties": {
+                  "output_hash": { "type": "string", "minLength": 1 },
+                  "model": { "type": "string" },
+                  "model_artifact_hash": {
+                    "type": "string",
+                    "description": "Digest of the model artifact that produced this output, when the artifact is signed and registered."
+                  },
+                  "derived_from": {
+                    "type": "array",
+                    "minItems": 1,
+                    "description": "Sources this output derives from. Each must have been retrieved earlier in the same chain.",
+                    "items": {
+                      "oneOf": [
+                        { "type": "string" },
+                        {
+                          "type": "object",
+                          "required": ["source_id"],
+                          "properties": {
+                            "source_id": { "type": "string" },
+                            "content_hash": { "type": "string" }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

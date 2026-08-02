@@ -1,0 +1,129 @@
+{
+  "rfc": "RFC-EG-0010",
+  "version": "0.1.0-reference",
+  "operation_id": "op_retrieval_001",
+  "events": [
+    {
+      "v": "1",
+      "evt": "authorization.issued",
+      "op_id": "op_retrieval_001",
+      "seq": 1,
+      "ts": "2026-05-18T00:00:00.000Z",
+      "producer": {
+        "service": "authorization",
+        "instance": "governance://11-11/reference/demo"
+      },
+      "payload": {
+        "artifact_id": "auth_ret_001",
+        "subject": "agent:research-assistant",
+        "policy_ref": "policy://rag/reference"
+      },
+      "prev_hash": null,
+      "prev_hash_b": null,
+      "chash": "sha3-512:87b16d78f013fe25c7f79dd768f453c98be20d73c11e9eca03e2651869f911e24e3db8036304f422a4f369611862d9607db68a900ad7c68ef727d83e4af25da8",
+      "chash_b": "blake2b-512:6ecd9b2f802b8f3763fe2f74ce20bc0ab6c5c7215981a670301c45c3b04ab67e9172d86fb959d8090e2390aaae09796b0eca18628c36c149af46aa99975fb4b4"
+    },
+    {
+      "v": "1",
+      "evt": "admission.granted",
+      "op_id": "op_retrieval_001",
+      "seq": 2,
+      "ts": "2026-05-18T00:00:01.000Z",
+      "producer": {
+        "service": "runtime",
+        "instance": "governance://11-11/reference/runtime"
+      },
+      "payload": {
+        "artifact_id": "auth_ret_001",
+        "runtime": "reference-runtime",
+        "decision": "admit"
+      },
+      "prev_hash": "sha3-512:87b16d78f013fe25c7f79dd768f453c98be20d73c11e9eca03e2651869f911e24e3db8036304f422a4f369611862d9607db68a900ad7c68ef727d83e4af25da8",
+      "prev_hash_b": "blake2b-512:6ecd9b2f802b8f3763fe2f74ce20bc0ab6c5c7215981a670301c45c3b04ab67e9172d86fb959d8090e2390aaae09796b0eca18628c36c149af46aa99975fb4b4",
+      "chash": "sha3-512:5651e762f35b3a51ab5a73173794c9b3caa8261f379811e27f0c4d3df15e213e299549c180dd9e27ae95eaf91dd1a342c714f4ac221af2812fb6c4f4b4311ea8",
+      "chash_b": "blake2b-512:92946fb705715e41fe41bcc64ec97a77651efd2eb2df21b669b043d519b52c1e4b94aab0c92043c43871f84e82bb40f30082c1c3746e8c20ec0f0b5795566efa"
+    },
+    {
+      "v": "1",
+      "evt": "retrieval.performed",
+      "op_id": "op_retrieval_001",
+      "seq": 3,
+      "ts": "2026-05-18T00:00:02.000Z",
+      "producer": {
+        "service": "retriever",
+        "instance": "governance://11-11/reference/retriever"
+      },
+      "payload": {
+        "query_hash": "sha3-512:571c0b99f831cba9fcaac0b6d077c6d627829f1cae76e20bb327bedc70c9c89754f15ab70ca240e797543340e751f1e58fc0c0f7bcd8f82db81f99cab1e69ae3",
+        "retriever": "reference-bm25",
+        "sources": [
+          {
+            "source_id": "doc://policy/retention-v3#s4",
+            "content_hash": "sha3-512:5ad3058db511b151071758ed2754cdc8623f948a123fb47d6761c9f59036bdb94bff2d4111f1472d6f0570a0364de350b67376a2ecb417633676e11dea206f30",
+            "uri": "doc://policy/retention-v3#s4",
+            "score": 0.94
+          },
+          {
+            "source_id": "doc://policy/retention-v3#s9",
+            "content_hash": "sha3-512:8b81bd10e666297fed9ed9afee2ab8f9104888705f3dcb97b9f6bd704d00f4766a6ee121a8c425db8b7a28b69bd23326e43160fe3010772dcc0d9ef8cc5bd911",
+            "uri": "doc://policy/retention-v3#s9",
+            "score": 0.81
+          }
+        ]
+      },
+      "prev_hash": "sha3-512:5651e762f35b3a51ab5a73173794c9b3caa8261f379811e27f0c4d3df15e213e299549c180dd9e27ae95eaf91dd1a342c714f4ac221af2812fb6c4f4b4311ea8",
+      "prev_hash_b": "blake2b-512:92946fb705715e41fe41bcc64ec97a77651efd2eb2df21b669b043d519b52c1e4b94aab0c92043c43871f84e82bb40f30082c1c3746e8c20ec0f0b5795566efa",
+      "chash": "sha3-512:76f708ffb6bd6ff819890f127b0b7987cf78905ec7f5f9cb3964608bb716183ba401c376e8dfb2850688a3e33b88cee59ab15c77523b34860b83f6aef1be6e48",
+      "chash_b": "blake2b-512:4707af33fa2e0617c1bc02ba42452a952ad9e9adbf1fa5f1642169b1c87873ec52102eda466f14c37268afd9cba74daf305d989538a4a1846d2b115ed0323b9c"
+    },
+    {
+      "v": "1",
+      "evt": "output.emitted",
+      "op_id": "op_retrieval_001",
+      "seq": 4,
+      "ts": "2026-05-18T00:00:03.000Z",
+      "producer": {
+        "service": "runtime",
+        "instance": "governance://11-11/reference/runtime"
+      },
+      "payload": {
+        "output_hash": "sha3-512:5ff844a473b655ea2bc419d58a4abd1dc3b643c3e6578091b75d03392404f6175e6a1eb45f648bce868497c54f11d5c8ef1be21192fa138b700db2c9b5e84714",
+        "model": "reference-model",
+        "model_artifact_hash": "sha3-512:c1b8ab8a465cb3114cf7f2ebc8a97fc6f56d33fad07665998ad76c92dbd99601a937ddcc6520d14f7cfae4be2de41be9ebce1f3cff7240246147c1c4a47f876c",
+        "derived_from": [
+          {
+            "source_id": "doc://policy/retention-v3#s4",
+            "content_hash": "sha3-512:5ad3058db511b151071758ed2754cdc8623f948a123fb47d6761c9f59036bdb94bff2d4111f1472d6f0570a0364de350b67376a2ecb417633676e11dea206f30"
+          },
+          {
+            "source_id": "doc://policy/retention-v3#s9",
+            "content_hash": "sha3-512:8b81bd10e666297fed9ed9afee2ab8f9104888705f3dcb97b9f6bd704d00f4766a6ee121a8c425db8b7a28b69bd23326e43160fe3010772dcc0d9ef8cc5bd911"
+          }
+        ]
+      },
+      "prev_hash": "sha3-512:76f708ffb6bd6ff819890f127b0b7987cf78905ec7f5f9cb3964608bb716183ba401c376e8dfb2850688a3e33b88cee59ab15c77523b34860b83f6aef1be6e48",
+      "prev_hash_b": "blake2b-512:4707af33fa2e0617c1bc02ba42452a952ad9e9adbf1fa5f1642169b1c87873ec52102eda466f14c37268afd9cba74daf305d989538a4a1846d2b115ed0323b9c",
+      "chash": "sha3-512:3c1f2b84fc6a5334fc7e679d9462b29162ce1e40482feb3745436e670f7cb0ad924256086905f2d16f162e7195303f7735f6eb124fc4eaf9d7ee7c8898c1a551",
+      "chash_b": "blake2b-512:049055548ce7a7e4461b74c355ce2160577bb4bb8326d8004e47bd0ba29a410502545731f16178ac02aa8e9d71409c5d9bc2065a05fde877d48f34ba2d080db2"
+    },
+    {
+      "v": "1",
+      "evt": "execution.completed",
+      "op_id": "op_retrieval_001",
+      "seq": 5,
+      "ts": "2026-05-18T00:00:04.000Z",
+      "producer": {
+        "service": "runtime",
+        "instance": "governance://11-11/reference/runtime"
+      },
+      "payload": {
+        "result_ref": "sha3-512:5ff844a473b655ea2bc419d58a4abd1dc3b643c3e6578091b75d03392404f6175e6a1eb45f648bce868497c54f11d5c8ef1be21192fa138b700db2c9b5e84714",
+        "status": "completed"
+      },
+      "prev_hash": "sha3-512:3c1f2b84fc6a5334fc7e679d9462b29162ce1e40482feb3745436e670f7cb0ad924256086905f2d16f162e7195303f7735f6eb124fc4eaf9d7ee7c8898c1a551",
+      "prev_hash_b": "blake2b-512:049055548ce7a7e4461b74c355ce2160577bb4bb8326d8004e47bd0ba29a410502545731f16178ac02aa8e9d71409c5d9bc2065a05fde877d48f34ba2d080db2",
+      "chash": "sha3-512:e85e5c247f86f7e75fc4529c5d5bb401f6b29c3f26b29ec8631134aaa4be7ce85ca354f45751df9485b5f21d1cfd695fe3a226e236f237e59e05c788bfe1c647",
+      "chash_b": "blake2b-512:43ef8542acc5c677b50745009af97b909f1de6b36e7b0bc7ac9c8f2e77dd1317aea63ca2b2430c2591959489e3a333e742c7640037ddbd5b56b629467302e6d7"
+    }
+  ]
+}
