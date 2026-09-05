@@ -1,0 +1,8 @@
+node_modules/
+.DS_Store
+*.log
+
+# Operator-local anchors. status LOCAL_ONLY, no external proof, and they embed
+# an absolute filesystem path. The RFC 3161 anchored transparency bundle IS
+# published, deliberately: outputs/transparency-bundle.json stays tracked.
+outputs/anchors/
