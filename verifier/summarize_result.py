@@ -1,3 +1,15 @@
+"""Summarise a governed execution result record for display.
+
+THIS SCRIPT PERFORMS NO CRYPTOGRAPHIC VERIFICATION.
+
+It reads the boolean fields a record asserts about itself and reformats them.
+It computes no hash, walks no chain, and checks no signature, so it cannot
+detect tampering and must never be cited as evidence that a record is valid.
+
+For actual verification, which recomputes the SHA3-512 and BLAKE2b-512 chains
+from the document itself, use src/verifier.js.
+"""
+
 import json
 import sys
 
@@ -21,7 +33,7 @@ def verify_execution(data):
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: python3 verifier/verify.py <execution_record.json>")
+        print("Usage: python3 verifier/summarize_result.py <execution_record.json>")
         sys.exit(1)
 
     with open(sys.argv[1], "r") as f:

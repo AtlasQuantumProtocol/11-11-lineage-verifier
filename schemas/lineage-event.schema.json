@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/11-11AI/11-11-lineage-verifier/schemas/lineage-event.schema.json",
+  "title": "RFC-EG-0010 Lineage Document",
+  "description": "A hash-chained lineage document as verified by src/verifier.js. Each event is chained twice, independently, under SHA3-512 and BLAKE2b-512. This schema encodes exactly what the reference verifier enforces and adds no constraint it does not check.",
+  "type": "object",
+  "required": ["rfc", "version", "operation_id", "events"],
+  "additionalProperties": true,
+  "properties": {
+    "rfc": {
+      "type": "string",
+      "description": "Specification identifier this document conforms to.",
+      "examples": ["RFC-EG-0010"]
+    },
+    "version": {
+      "type": "string",
+      "description": "Document format version.",
+      "examples": ["0.1.0-reference"]
+    },
+    "operation_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Identifier of the operation this lineage describes. Every event carries the same value in op_id."
+    },
+    "events": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Events in strict sequence order. seq starts at 1 and increments by exactly 1; the verifier rejects any gap or repeat.",
+      "items": { "$ref": "#/$defs/event" }
+    }
+  },
+  "$defs": {
+    "sha3Digest": {
+      "type": "string",
+      "pattern": "^sha3-512:[0-9a-f]{128}$",
+      "description": "SHA3-512 digest, lowercase hex, algorithm-prefixed."
+    },
+    "blakeDigest": {
+      "type": "string",
+      "pattern": "^blake2b-512:[0-9a-f]{128}$",
+      "description": "BLAKE2b-512 digest, lowercase hex, algorithm-prefixed."
+    },
+    "event": {
+      "type": "object",
+      "required": ["v", "evt", "op_id", "seq", "ts", "producer", "payload", "prev_hash", "prev_hash_b", "chash", "chash_b"],
+      "additionalProperties": true,
+      "properties": {
+        "v": { "type": "string", "description": "Event envelope version.", "examples": ["1"] },
+        "evt": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Event type in dotted form. The reference set is not closed; a verifier must chain unknown types rather than reject them.",
+          "examples": ["authorization.issued", "admission.granted", "execution.completed"]
+        },
+        "op_id": { "type": "string", "minLength": 1, "description": "Operation this event belongs to. Matches the document's operation_id." },
+        "seq": { "type": "integer", "minimum": 1, "description": "Position in the chain. The first event is 1; each subsequent event is exactly one greater than its predecessor." },
+        "ts": { "type": "string", "format": "date-time", "description": "Event timestamp, ISO 8601 UTC." },
+        "producer": {
+          "type": "object",
+          "required": ["service", "instance"],
+          "additionalProperties": true,
+          "description": "The component that emitted the event.",
+          "properties": {
+            "service": { "type": "string", "minLength": 1, "examples": ["authorization", "runtime"] },
+            "instance": { "type": "string", "minLength": 1, "description": "Instance identifier, conventionally a governance:// URI.", "examples": ["governance://11-11/reference/demo"] }
+          }
+        },
+        "payload": {
+          "type": "object",
+          "description": "Event-specific body. Shape varies by evt and is deliberately open. Every byte of it is covered by chash and chash_b.",
+          "additionalProperties": true
+        },
+        "prev_hash": {
+          "description": "chash of the preceding event, or null on the first event.",
+          "oneOf": [{ "$ref": "#/$defs/sha3Digest" }, { "type": "null" }]
+        },
+        "prev_hash_b": {
+          "description": "chash_b of the preceding event, or null on the first event.",
+          "oneOf": [{ "$ref": "#/$defs/blakeDigest" }, { "type": "null" }]
+        },
+        "chash": {
+          "allOf": [{ "$ref": "#/$defs/sha3Digest" }],
+          "description": "SHA3-512 over the canonical event body concatenated with prev_hash, or with the literal string \"genesis\" on the first event. The body is the event with chash, chash_b and sig removed, serialised with keys sorted recursively."
+        },
+        "chash_b": {
+          "allOf": [{ "$ref": "#/$defs/blakeDigest" }],
+          "description": "BLAKE2b-512 over the same canonical body concatenated with prev_hash_b, or with \"genesis\" on the first event. Computed independently of chash, so a break in one chain does not hide a break in the other."
+        },
+        "sig": {
+          "type": "string",
+          "description": "Optional detached signature over the event. Excluded from the canonical body before hashing, so adding or removing it does not alter chash or chash_b."
+        }
+      }
+    }
+  }
+}
